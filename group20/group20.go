@@ -7,8 +7,9 @@ import (
     "flag"
 )
 
-var inputFlag = flag.String("i", "", "Input file")
-var outputFlag = flag.String("o", "", "Output file")
+var inputPath = flag.String("i", "", "Input file")
+var outputPath = flag.String("o", "", "Output file")
+var separator = flag.String("s", ",", "Separator between elements in a row")
 
 func check(e error) {
     if e != nil {
@@ -22,20 +23,20 @@ func main() {
 
     flag.Parse()
 
-    file, err := os.Open(*inputFlag)
+    inputFile, err := os.Open(*inputPath)
     check(err)
-    defer file.Close()
+    defer inputFile.Close()
 
-    output, err := os.Create(*outputFlag)
+    outputFile, err := os.Create(*outputPath)
     check(err)
-    defer output.Close()
+    defer outputFile.Close()
 
-    scanner := bufio.NewScanner(file)
-    writer := bufio.NewWriter(output)
+    scanner := bufio.NewScanner(inputFile)
+    writer := bufio.NewWriter(outputFile)
 
     for scanner.Scan() {
         if buffer.Len() > 0 {
-            buffer.WriteString(",")
+            buffer.WriteString(*separator)
         }
 
         buffer.WriteString(scanner.Text())
