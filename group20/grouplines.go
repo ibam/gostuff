@@ -10,6 +10,7 @@ import (
 var inputPath = flag.String("i", "", "Input file")
 var outputPath = flag.String("o", "", "Output file")
 var separator = flag.String("s", ",", "Separator between elements in a row")
+var groupedLine = flag.Int("l", 20, "Number of lines being grouped together")
 
 func check(e error) {
     if e != nil {
@@ -42,7 +43,7 @@ func main() {
         buffer.WriteString(scanner.Text())
         i++
 
-        if i % 20 == 0 {
+        if i % *groupedLine == 0 {
             writer.WriteString(buffer.String() + "\n")
             buffer.Reset()
         }
