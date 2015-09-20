@@ -45,7 +45,7 @@ func main() {
 	headers = append(headers[:IndexLokasiRW], append([]string{"lokasi_rt"}, headers[IndexLokasiRW:]...)...)
 	csvWriter.Write(headers)
 
-	var rtCounter int
+	rtCounter := 0
 
 	for _, record := range records {
 		alamatLokasi := record[IndexLokasi]
